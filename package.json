@@ -1,0 +1,60 @@
+{
+  "name": "@socialchamp/n8n-nodes-socialchamp",
+  "version": "0.1.0",
+  "description": "n8n community node for Social Champ - list channels and create or schedule posts.",
+  "keywords": [
+    "n8n-community-node-package",
+    "n8n",
+    "socialchamp",
+    "social-media",
+    "scheduling"
+  ],
+  "license": "MIT",
+  "homepage": "https://developers.socialchamp.com",
+  "author": {
+    "name": "Social Champ",
+    "email": "support@socialchamp.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SocialChamp/socialchamp-n8n.git"
+  },
+  "engines": {
+    "node": ">=20.15"
+  },
+  "main": "index.js",
+  "scripts": {
+    "build": "npx rimraf dist tsconfig.tsbuildinfo && tsc && gulp build:icons",
+    "dev": "tsc --watch",
+    "format": "prettier nodes credentials --write",
+    "lint": "eslint nodes credentials package.json",
+    "lintfix": "eslint nodes credentials package.json --fix",
+    "prepublishOnly": "npm run build && eslint -c .eslintrc.prepublish.js nodes credentials package.json"
+  },
+  "files": [
+    "dist"
+  ],
+  "n8n": {
+    "n8nNodesApiVersion": 1,
+    "credentials": [
+      "dist/credentials/SocialChampApi.credentials.js"
+    ],
+    "nodes": [
+      "dist/nodes/SocialChamp/SocialChamp.node.js"
+    ]
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.43",
+    "@typescript-eslint/parser": "^7.18.0",
+    "eslint": "^8.57.0",
+    "eslint-plugin-n8n-nodes-base": "^1.16.3",
+    "gulp": "^5.0.0",
+    "n8n-workflow": "*",
+    "prettier": "^3.3.3",
+    "rimraf": "^5.0.10",
+    "typescript": "^5.5.4"
+  },
+  "peerDependencies": {
+    "n8n-workflow": "*"
+  }
+}

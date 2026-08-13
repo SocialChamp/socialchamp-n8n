@@ -1,0 +1,10 @@
+.github
+nodes
+credentials
+*.ts
+tsconfig.json
+tsconfig.tsbuildinfo
+gulpfile.js
+.eslintrc.js
+.eslintrc.prepublish.js
+.prettierrc.js
