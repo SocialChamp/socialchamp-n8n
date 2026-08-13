@@ -8,3 +8,7 @@ gulpfile.js
 .eslintrc.js
 .eslintrc.prepublish.js
 .prettierrc.js
+**/__tests__
+jest.config.js
+tsconfig.test.json
+.gitattributes

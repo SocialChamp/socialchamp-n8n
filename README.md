@@ -109,7 +109,17 @@ Read these before building anything that depends on them.
 npm install
 npm run build      # tsc + copies icons into dist/
 npm run lint       # eslint-plugin-n8n-nodes-base, the same rules n8n verification uses
+npm test           # jest
 ```
+
+Tests mock the n8n execution context and assert on the request the node would
+have sent, so they run offline and never touch a real account. The scheduling
+and idempotency suites are the ones worth keeping green: a timezone slip sends a
+customer's post at the wrong hour, and a key collision would let a retry become a
+second post once the API starts enforcing the header.
+
+Tests live in `__tests__` folders and are excluded from `dist/`, so the published
+package ships runtime files only.
 
 To try it in a local n8n:
 

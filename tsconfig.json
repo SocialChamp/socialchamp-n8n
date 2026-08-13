@@ -21,7 +21,9 @@
 		"sourceMap": true,
 		"skipLibCheck": true,
 		"outDir": "./dist/",
-		"types": ["node"]
+		"types": ["node", "jest"]
 	},
-	"include": ["credentials/**/*", "nodes/**/*", "nodes/**/*.json", "package.json"]
+	"include": ["credentials/**/*", "nodes/**/*", "nodes/**/*.json", "package.json"],
+	"comment": "Tests type-check through ts-jest, but must never reach dist/ - the published package ships runtime files only.",
+	"exclude": ["**/__tests__/**", "dist", "node_modules"]
 }

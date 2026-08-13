@@ -28,6 +28,7 @@ module.exports = {
 		},
 		{
 			files: ['./credentials/**/*.ts'],
+			excludedFiles: ['./credentials/**/__tests__/**/*.ts'],
 			plugins: ['eslint-plugin-n8n-nodes-base'],
 			extends: ['plugin:n8n-nodes-base/credentials'],
 			rules: {
@@ -36,7 +37,17 @@ module.exports = {
 			},
 		},
 		{
+			// Tests live outside the build tsconfig so they never reach dist/,
+			// so typed linting has to read them through the test config instead.
+			files: ['./**/__tests__/**/*.ts'],
+			parserOptions: {
+				project: ['./tsconfig.test.json'],
+			},
+			rules: {},
+		},
+		{
 			files: ['./nodes/**/*.ts'],
+			excludedFiles: ['./nodes/**/__tests__/**/*.ts'],
 			plugins: ['eslint-plugin-n8n-nodes-base'],
 			extends: ['plugin:n8n-nodes-base/nodes'],
 			rules: {
