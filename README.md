@@ -105,10 +105,15 @@ Read these before building anything that depends on them.
 
 ## Development
 
+This package is built with [`@n8n/node-cli`](https://www.npmjs.com/package/@n8n/node-cli),
+n8n's official tooling, so the build and lint rules here are the same ones the
+verification process applies.
+
 ```bash
 npm install
-npm run build      # tsc + copies icons into dist/
-npm run lint       # eslint-plugin-n8n-nodes-base, the same rules n8n verification uses
+npm run dev        # runs a local n8n with this node linked and watches for changes
+npm run build      # compiles to dist/ and copies the icons
+npm run lint       # n8n's own community-node rules
 npm test           # jest
 ```
 
@@ -121,7 +126,10 @@ second post once the API starts enforcing the header.
 Tests live in `__tests__` folders and are excluded from `dist/`, so the published
 package ships runtime files only.
 
-To try it in a local n8n:
+`npm run dev` is the quickest way to try a change: it starts n8n with this node
+already linked and reloads on save.
+
+To link it into an n8n you are already running instead:
 
 ```bash
 npm run build
@@ -129,7 +137,16 @@ npm link
 cd ~/.n8n/custom && npm link @socialchamp/n8n-nodes-socialchamp
 ```
 
-Then restart n8n and the node appears in the palette.
+Restart n8n afterwards - custom nodes are only read at boot, so a rebuild alone
+will not show up.
+
+## Resources
+
+- [n8n Community Nodes Documentation](https://docs.n8n.io/integrations/community-nodes/)
+- [Social Champ](https://www.socialchamp.com)
+- [Developer Portal](https://developers.socialchamp.com)
+- [API reference](https://developers.socialchamp.com/api-reference)
+- [Creating an API token](https://developers.socialchamp.com/docs/create-api-token)
 
 ## License
 

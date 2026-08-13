@@ -24,14 +24,14 @@
   },
   "main": "index.js",
   "scripts": {
-    "build": "npx rimraf dist tsconfig.tsbuildinfo && tsc && gulp build:icons",
-    "dev": "tsc --watch",
-    "format": "prettier nodes credentials --write",
+    "build": "n8n-node build",
+    "dev": "n8n-node dev",
+    "lint": "n8n-node lint",
+    "lint:fix": "n8n-node lint --fix",
     "test": "jest",
     "test:watch": "jest --watch",
-    "lint": "eslint nodes credentials package.json",
-    "lintfix": "eslint nodes credentials package.json --fix",
-    "prepublishOnly": "npm run build && eslint -c .eslintrc.prepublish.js nodes credentials package.json"
+    "release": "n8n-node release",
+    "prepublishOnly": "n8n-node prerelease"
   },
   "files": [
     "dist"
@@ -43,23 +43,23 @@
     ],
     "nodes": [
       "dist/nodes/SocialChamp/SocialChamp.node.js"
-    ]
+    ],
+    "strict": true
   },
   "devDependencies": {
+    "@n8n/node-cli": "^0.43.3",
     "@types/jest": "^29.5.14",
     "@types/node": "^20.19.43",
-    "@typescript-eslint/parser": "^7.18.0",
-    "eslint": "^8.57.0",
-    "eslint-plugin-n8n-nodes-base": "^1.16.3",
-    "gulp": "^5.0.0",
     "jest": "^29.7.0",
     "n8n-workflow": "*",
     "prettier": "^3.3.3",
-    "rimraf": "^5.0.10",
     "ts-jest": "^29.4.12",
     "typescript": "^5.5.4"
   },
   "peerDependencies": {
     "n8n-workflow": "*"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

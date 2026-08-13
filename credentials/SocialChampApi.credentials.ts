@@ -10,7 +10,7 @@ export class SocialChampApi implements ICredentialType {
 
 	displayName = 'Social Champ API';
 
-	documentationUrl = 'https://developers.socialchamp.com';
+	documentationUrl = 'https://developers.socialchamp.com/docs/create-api-token';
 
 	icon = {
 		light: 'file:../nodes/SocialChamp/socialChamp.svg',

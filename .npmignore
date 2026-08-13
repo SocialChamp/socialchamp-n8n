@@ -1,14 +1,15 @@
+# package.json "files" already limits the tarball to dist/. This is a second
+# guard so source and tooling can never slip into a published package.
 .github
 nodes
 credentials
 *.ts
 tsconfig.json
-tsconfig.tsbuildinfo
-gulpfile.js
-.eslintrc.js
-.eslintrc.prepublish.js
-.prettierrc.js
-**/__tests__
-jest.config.js
 tsconfig.test.json
+tsconfig.tsbuildinfo
+dist/tsconfig.tsbuildinfo
+eslint.config.mjs
+.prettierrc.js
+jest.config.js
+**/__tests__
 .gitattributes

@@ -7,15 +7,16 @@ import type {
 	INodePropertyOptions,
 	INodeType,
 	INodeTypeDescription,
+	JsonObject,
 	NodeConnectionType,
 } from 'n8n-workflow';
-import { NodeOperationError } from 'n8n-workflow';
+import { NodeApiError, NodeOperationError } from 'n8n-workflow';
 
 import { channelTypeLabel } from './ChannelTypes';
 import { socialChampApiRequest, unwrapList } from './GenericFunctions';
 
 /** postType values the create-post endpoint validates against. */
-const POST_TYPES = ['NOW', 'NEXT', 'LAST', 'SCHEDULE'] as const;
+type PostType = 'NOW' | 'NEXT' | 'LAST' | 'SCHEDULE';
 
 export class SocialChamp implements INodeType {
 	description: INodeTypeDescription = {
@@ -36,6 +37,8 @@ export class SocialChamp implements INodeType {
 		// NodeConnectionTypes const resolve to, so it works across n8n versions.
 		inputs: ['main'] as NodeConnectionType[],
 		outputs: ['main'] as NodeConnectionType[],
+		// Lets an AI Agent call this node as a tool, the same way Buffer's does.
+		usableAsTool: true,
 		credentials: [
 			{
 				name: 'socialChampApi',
@@ -286,8 +289,8 @@ export class SocialChamp implements INodeType {
 						// human-readable field is present before falling back to the id.
 						const name =
 							(channel.alias as string) ||
-							(channel.screenName as string) ||
 							(channel.name as string) ||
+							(channel.screenName as string) ||
 							(channel.id as string);
 						return {
 							name: label ? `${name} (${label})` : name,
@@ -336,7 +339,7 @@ export class SocialChamp implements INodeType {
 				if (resource === 'post' && operation === 'create') {
 					const channelIds = this.getNodeParameter('channelIds', i) as string[];
 					const text = this.getNodeParameter('text', i) as string;
-					const postType = this.getNodeParameter('postType', i) as (typeof POST_TYPES)[number];
+					const postType = this.getNodeParameter('postType', i) as PostType;
 					const additionalFields = this.getNodeParameter('additionalFields', i, {}) as IDataObject;
 
 					if (!channelIds.length) {
@@ -412,7 +415,12 @@ export class SocialChamp implements INodeType {
 					});
 					continue;
 				}
-				throw error;
+				// Errors raised below are already NodeApiError/NodeOperationError and
+				// carry their own context; anything else reaching here is unexpected
+				// and would otherwise surface to the user as a bare stack trace.
+				throw error instanceof NodeApiError || error instanceof NodeOperationError
+					? error
+					: new NodeApiError(this.getNode(), error as JsonObject, { itemIndex: i });
 			}
 		}
 

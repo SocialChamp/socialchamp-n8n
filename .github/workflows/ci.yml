@@ -19,3 +19,27 @@ jobs:
       - run: npm run lint
       - run: npm test
       - run: npm run build
+
+      # A stale build cache can make tsc report success while emitting nothing,
+      # producing a dist/ that is missing most of the package. The build says
+      # "successful" either way, so assert on the output instead.
+      - name: Verify the build produced a loadable package
+        run: |
+          for f in \
+            dist/nodes/SocialChamp/SocialChamp.node.js \
+            dist/nodes/SocialChamp/GenericFunctions.js \
+            dist/nodes/SocialChamp/ChannelTypes.js \
+            dist/nodes/SocialChamp/socialChamp.svg \
+            dist/nodes/SocialChamp/socialChamp.dark.svg \
+            dist/credentials/SocialChampApi.credentials.js
+          do
+            test -f "$f" || { echo "missing from dist: $f"; exit 1; }
+          done
+          node -e "
+            const { SocialChamp } = require('./dist/nodes/SocialChamp/SocialChamp.node.js');
+            const { SocialChampApi } = require('./dist/credentials/SocialChampApi.credentials.js');
+            const d = new SocialChamp().description;
+            if (d.name !== 'socialChamp') throw new Error('unexpected node name: ' + d.name);
+            if (new SocialChampApi().name !== 'socialChampApi') throw new Error('bad credential name');
+            console.log('node and credential load from dist');
+          "

@@ -15,8 +15,11 @@
 		"preserveConstEnums": true,
 		"esModuleInterop": true,
 		"resolveJsonModule": true,
+		// Leave the build info inside outDir. `n8n-node build` wipes dist/ before
+		// each build, so keeping it there means the cache dies with the output.
+		// Parked anywhere else it survives the clean and tsc then "successfully"
+		// emits nothing, leaving a dist/ that is missing most of the package.
 		"incremental": true,
-		"tsBuildInfoFile": "./tsconfig.tsbuildinfo",
 		"declaration": true,
 		"sourceMap": true,
 		"skipLibCheck": true,

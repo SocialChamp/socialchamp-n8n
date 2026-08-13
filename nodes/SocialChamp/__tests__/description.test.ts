@@ -19,6 +19,10 @@ describe('node description', () => {
 		expect(description.outputs).toEqual(['main']);
 	});
 
+	it('can be called by an AI Agent as a tool', () => {
+		expect(description.usableAsTool).toBe(true);
+	});
+
 	it('ships light and dark icons', () => {
 		expect(description.icon).toEqual({
 			light: 'file:socialChamp.svg',
