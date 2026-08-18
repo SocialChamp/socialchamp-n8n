@@ -1,5 +1,5 @@
 {
-  "name": "@socialchamp/n8n-nodes-socialchamp",
+  "name": "@socialchampio/n8n-nodes-socialchamp",
   "version": "0.1.0",
   "description": "n8n community node for Social Champ - list channels and create or schedule posts.",
   "keywords": [
