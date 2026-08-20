@@ -12,10 +12,10 @@ a specific time.
 In n8n, go to **Settings > Community Nodes**, select **Install**, and enter:
 
 ```
-@socialchamp/n8n-nodes-socialchamp
+@socialchampio/n8n-nodes-socialchamp
 ```
 
-Self-hosted installs can instead run `npm install @socialchamp/n8n-nodes-socialchamp` in the n8n
+Self-hosted installs can instead run `npm install @socialchampio/n8n-nodes-socialchamp` in the n8n
 custom-nodes folder.
 
 ## Credentials
@@ -134,7 +134,7 @@ To link it into an n8n you are already running instead:
 ```bash
 npm run build
 npm link
-cd ~/.n8n/custom && npm link @socialchamp/n8n-nodes-socialchamp
+cd ~/.n8n/custom && npm link @socialchampio/n8n-nodes-socialchamp
 ```
 
 Restart n8n afterwards - custom nodes are only read at boot, so a rebuild alone

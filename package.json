@@ -1,6 +1,6 @@
 {
   "name": "@socialchampio/n8n-nodes-socialchamp",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "n8n community node for Social Champ - list channels and create or schedule posts.",
   "keywords": [
     "n8n-community-node-package",
